@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://dkauufi4l3e4i"]
+
+[ext_resource type="Texture2D" uid="uid://bt7f7pra0xu6y" path="res://sprites/Card-Jitsu_Cards_full_1.webp" id="1_kikvd"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_btls4"]
+size = Vector2(94, 107)
+
+[node name="Card" type="Node2D" unique_id=2068497392]
+
+[node name="CardImg" type="Sprite2D" parent="." unique_id=385782709]
+scale = Vector2(0.09893751, 0.098937534)
+texture = ExtResource("1_kikvd")
+
+[node name="Area2D" type="Area2D" parent="." unique_id=993546741]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=905654742]
+shape = SubResource("RectangleShape2D_btls4")
