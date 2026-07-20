@@ -13,23 +13,27 @@ func _ready() -> void:
 	center_screen_x = get_viewport().size.x/2
 	
 	var card_scene = preload(CARD_SCENE_PATH)
+	var dealt_cards = CardDatabase.get_random_deck(HAND_COUNT)
 	for i in range(HAND_COUNT):
 		var new_card = card_scene.instantiate()
 		$"../CardManager".add_child(new_card)
 		new_card.name = "CARD"
+		new_card.setup(dealt_cards[i])
 		add_card_to_hand(new_card)
 
 func add_card_to_hand(card):
-	player_hand.insert(0, card)
-	update_hand_positions()
-	
+	if card not in player_hand:
+		player_hand.insert(0, card)
+		update_hand_positions()
+	else:
+		animate_card_to_position(card, card.starting_position)
 
 func update_hand_positions(): #when a card is selected, the cards in hand's position
 	for i in range(player_hand.size()):
 		var new_position = Vector2(calculate_card_position(i), HAND_Y_POSITION)
 		var card = player_hand[i]
 		animate_card_to_position(card, new_position)
-
+		card.starting_position = new_position
 
 func calculate_card_position(index):
 	var total_width = player_hand.size() -1 * CARD_WIDTH

@@ -8,9 +8,11 @@ const SCALE_LERP_RADIUS = 250
 var card_dragged
 var screen_size
 var is_hovering_on_card
+var player_hand_reference
 
 func _ready() -> void:
 		screen_size = get_viewport_rect().size
+		player_hand_reference = $"../PlayerHand"
 
 func _process(delta: float) -> void:
 	if card_dragged:
@@ -38,6 +40,7 @@ func finish_drag():
 		card_dragged.place_in_slot(card_slot_found)
 		card_slot_found.card_in_slot = true
 	else:
+		player_hand_reference.add_card_to_hand(card_dragged)
 		card_dragged.scale = Vector2(1.05, 1.05)
 	card_dragged = null
 
