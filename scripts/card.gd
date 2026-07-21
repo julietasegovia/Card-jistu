@@ -38,3 +38,4 @@ func setup(data: CardData) -> void:
 func hide_from_player() -> void:
 	$CardImg.texture = CARD_BACK_TEXTURE
 	$Area2D/CollisionShape2D.disabled = true
+	z_index = 5

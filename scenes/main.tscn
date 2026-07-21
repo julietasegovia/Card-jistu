@@ -4,17 +4,30 @@
 [ext_resource type="PackedScene" uid="uid://coc76rfwmi35v" path="res://scenes/card_slot.tscn" id="2_jyhfs"]
 [ext_resource type="Script" uid="uid://r3nfmqicmvb" path="res://scripts/player_hand.gd" id="3_jyhfs"]
 [ext_resource type="Script" uid="uid://cvu5jhg1ll2rb" path="res://scripts/rival_hand.gd" id="4_jyhfs"]
+[ext_resource type="Script" uid="uid://3ijyvk3rtuu2" path="res://scenes/turn_manager.gd" id="5_tbgi4"]
 
 [node name="Main" type="Node2D" unique_id=3598990]
 
 [node name="CardManager" type="Node2D" parent="." unique_id=1890234229]
 script = ExtResource("1_sugp2")
+turn_manager_path = NodePath("../TurnManager")
 
 [node name="CardSlot" parent="." unique_id=1389865391 instance=ExtResource("2_jyhfs")]
 position = Vector2(1628, 679)
+
+[node name="RivalSlot" parent="." unique_id=582502003 instance=ExtResource("2_jyhfs")]
+position = Vector2(297, 681)
+is_player_slot = false
 
 [node name="PlayerHand" type="Node2D" parent="." unique_id=531071252]
 script = ExtResource("3_jyhfs")
 
 [node name="RivalHand" type="Node2D" parent="." unique_id=172284920]
 script = ExtResource("4_jyhfs")
+rival_slot_path = NodePath("../RivalSlot")
+
+[node name="TurnManager" type="Node2D" parent="." unique_id=1535298449]
+script = ExtResource("5_tbgi4")
+rival_hand_path = NodePath("../RivalHand")
+player_hand_path = NodePath("../PlayerHand")
+player_slot_path = NodePath("../CardSlot")

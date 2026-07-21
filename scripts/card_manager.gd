@@ -10,6 +10,9 @@ var screen_size
 var is_hovering_on_card
 var player_hand_reference
 
+@export var turn_manager_path: NodePath
+@onready var turn_manager = get_node(turn_manager_path)
+
 func _ready() -> void:
 		screen_size = get_viewport_rect().size
 		player_hand_reference = $"../PlayerHand"
@@ -39,6 +42,7 @@ func finish_drag():
 		card_dragged.position = card_slot_found.position
 		card_dragged.place_in_slot(card_slot_found)
 		card_slot_found.card_in_slot = true
+		turn_manager.stop_turn_timer()
 	else:
 		player_hand_reference.add_card_to_hand(card_dragged)
 		card_dragged.scale = Vector2(1.05, 1.05)

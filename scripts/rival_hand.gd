@@ -8,6 +8,9 @@ const HAND_Y_POSITION = 1000
 var rival_hand = []
 var center_screen_x
 
+@export var rival_slot_path: NodePath
+@onready var rival_slot = get_node(rival_slot_path)
+
 func _ready() -> void:
 	center_screen_x = get_viewport().size.x/2
 	var card_scene = preload(CARD_SCENE_PATH)
@@ -42,6 +45,26 @@ func animate_card_to_position(card, new_position):
 	var tween = get_tree().create_tween()
 	tween.tween_property(card, "position", new_position, 0.1)
 
+func play_random_card() -> void:
+	if rival_hand.is_empty():
+		return
+	var random_index = randi() % rival_hand.size()
+	var chosen_card = rival_hand[random_index]
+	rival_hand.remove_at(random_index)
+	animate_card_into_slot(chosen_card, rival_slot)
+	update_hand_positions()
+
+func animate_card_into_slot(card, slot) -> void:
+	var tween = get_tree().create_tween()
+	tween.set_parallel(true)
+	tween.set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
+	tween.tween_property(card, "position", slot.position, 0.4)
+	tween.tween_property(card, "scale", slot.CARD_TARGET_SCALE, 0.4)
+	tween.set_parallel(false)
+	tween.tween_callback(func():
+		card.place_in_slot(slot)
+		slot.card_in_slot = true
+	)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
