@@ -5,6 +5,18 @@
 [ext_resource type="Script" uid="uid://r3nfmqicmvb" path="res://scripts/player_hand.gd" id="3_jyhfs"]
 [ext_resource type="Script" uid="uid://cvu5jhg1ll2rb" path="res://scripts/rival_hand.gd" id="4_jyhfs"]
 [ext_resource type="Script" uid="uid://3ijyvk3rtuu2" path="res://scenes/turn_manager.gd" id="5_tbgi4"]
+[ext_resource type="Script" uid="uid://de0u5pi8mild1" path="res://scenes/game_over_screen.gd" id="6_o6xl0"]
+[ext_resource type="FontFile" uid="uid://ce57rbtp0uh61" path="res://fonts/ninja_note/Ninja Note.otf" id="7_tipki"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_eb6dy"]
+bg_color = Color(0.7877867, 0.7863179, 0.121745534, 1)
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0, 0, 0, 1)
+corner_detail = 20
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tipki"]
+bg_color = Color(0.60656255, 0.60670805, 0.09315858, 1)
 
 [node name="Main" type="Node2D" unique_id=3598990]
 
@@ -31,3 +43,52 @@ script = ExtResource("5_tbgi4")
 rival_hand_path = NodePath("../RivalHand")
 player_hand_path = NodePath("../PlayerHand")
 player_slot_path = NodePath("../CardSlot")
+
+[node name="GameOverScreen" type="CanvasLayer" parent="." unique_id=914576057]
+script = ExtResource("6_o6xl0")
+
+[node name="Background" type="ColorRect" parent="GameOverScreen" unique_id=1119048600]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 1, 1, 0.80784315)
+
+[node name="WinnerLabel" type="Label" parent="GameOverScreen" unique_id=2091798422]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -0.5
+offset_top = -11.5
+offset_right = 0.5
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.8459433, 0.84444904, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 20
+theme_override_fonts/font = ExtResource("7_tipki")
+theme_override_font_sizes/font_size = 120
+text = "You Win!"
+
+[node name="PlayAgainButton" type="Button" parent="GameOverScreen" unique_id=958511368]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -195.0
+offset_top = -409.0
+offset_right = 155.13696
+offset_bottom = -302.5
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_fonts/font = ExtResource("7_tipki")
+theme_override_font_sizes/font_size = 41
+theme_override_styles/normal = SubResource("StyleBoxFlat_eb6dy")
+theme_override_styles/hover = SubResource("StyleBoxFlat_tipki")
+action_mode = 0
+text = "Play Again?"

@@ -1,5 +1,6 @@
 extends Node
 
+signal turn_resolved(winner: Winner)
 signal round_over(winner_name: String)
 
 const WINS_NEEDED = 3
@@ -18,15 +19,12 @@ var rival_wins = 0
 
 func resolve_turn(player_card: CardData, rival_card: CardData) -> Winner:
 	var winner = get_turn_winner(player_card, rival_card)
-
 	match winner:
 		Winner.PLAYER:
 			player_wins += 1
 		Winner.RIVAL:
 			rival_wins += 1
-		Winner.TIE:
-			pass
-
+	turn_resolved.emit(winner)
 	check_for_round_winner()
 	return winner
 
