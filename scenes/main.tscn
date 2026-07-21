@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://wwvyr71mkece" path="res://scripts/card_manager.gd" id="1_sugp2"]
 [ext_resource type="PackedScene" uid="uid://coc76rfwmi35v" path="res://scenes/card_slot.tscn" id="2_jyhfs"]
 [ext_resource type="Script" uid="uid://r3nfmqicmvb" path="res://scripts/player_hand.gd" id="3_jyhfs"]
+[ext_resource type="Script" uid="uid://cvu5jhg1ll2rb" path="res://scripts/rival_hand.gd" id="4_jyhfs"]
 
 [node name="Main" type="Node2D" unique_id=3598990]
 
@@ -14,3 +15,6 @@ position = Vector2(1628, 679)
 
 [node name="PlayerHand" type="Node2D" parent="." unique_id=531071252]
 script = ExtResource("3_jyhfs")
+
+[node name="RivalHand" type="Node2D" parent="." unique_id=172284920]
+script = ExtResource("4_jyhfs")

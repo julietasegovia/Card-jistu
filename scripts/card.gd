@@ -3,6 +3,8 @@ extends Node2D
 signal hovered
 signal hovered_off
 
+const CARD_BACK_TEXTURE = preload("res://sprites/card_back.png")
+
 var is_placed_in_slot = false
 var current_slot = null
 var starting_position
@@ -32,3 +34,7 @@ func place_in_slot(slot):
 func setup(data: CardData) -> void:
 	card_data = data
 	$CardImg.texture = data.texture
+
+func hide_from_player() -> void:
+	$CardImg.texture = CARD_BACK_TEXTURE
+	$Area2D/CollisionShape2D.disabled = true
