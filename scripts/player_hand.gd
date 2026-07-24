@@ -8,17 +8,16 @@ const HAND_Y_POSITION = 1000
 var player_hand = []
 var center_screen_x
 
-# Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	await get_tree().process_frame
 	center_screen_x = get_viewport().size.x/2
-	
+	CardDatabase.deal_hands()
 	var card_scene = preload(CARD_SCENE_PATH)
-	var dealt_cards = CardDatabase.get_random_deck(HAND_COUNT)
 	for i in range(HAND_COUNT):
 		var new_card = card_scene.instantiate()
 		$"../CardManager".add_child(new_card)
 		new_card.name = "CARD"
-		new_card.setup(dealt_cards[i])
+		new_card.setup(CardDatabase.player_hand_cards[i])
 		add_card_to_hand(new_card)
 
 func add_card_to_hand(card):
@@ -36,10 +35,23 @@ func update_hand_positions(): #when a card is selected, the cards in hand's posi
 		card.starting_position = new_position
 
 func calculate_card_position(index):
-	var total_width = player_hand.size() -1 * CARD_WIDTH
-	var x_offset = (1.45 * center_screen_x) + index * CARD_WIDTH - total_width / 2
+	var total_width = (player_hand.size() - 1) * CARD_WIDTH
+	var x_offset = (1.721 * center_screen_x) + index * CARD_WIDTH - total_width / 2
 	return x_offset
 
 func animate_card_to_position(card, new_position):
 	var tween = get_tree().create_tween()
 	tween.tween_property(card, "position", new_position, 0.1)
+
+func replenish() -> void:
+	var card_scene = preload(CARD_SCENE_PATH)
+	var cards_needed = HAND_COUNT - player_hand.size()
+	if cards_needed <= 0:
+		return
+	var new_cards = CardDatabase.get_random_deck(cards_needed)
+	for card_data in new_cards:
+		var new_card = card_scene.instantiate()
+		$"../CardManager".add_child(new_card)
+		new_card.name = "CARD"
+		new_card.setup(card_data)
+		add_card_to_hand(new_card)

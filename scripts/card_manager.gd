@@ -37,11 +37,15 @@ func start_drag(card):
 	card.scale = Vector2(1,1)
 
 func finish_drag():
+	if not card_dragged:
+		return
 	var card_slot_found = check_for_card_slot()
 	if card_slot_found and not card_slot_found.card_in_slot:
 		card_dragged.position = card_slot_found.position
 		card_dragged.place_in_slot(card_slot_found)
 		card_slot_found.card_in_slot = true
+		card_slot_found.placed_card = card_dragged
+		player_hand_reference.player_hand.erase(card_dragged)
 		turn_manager.stop_turn_timer()
 	else:
 		player_hand_reference.add_card_to_hand(card_dragged)
@@ -91,7 +95,7 @@ func highlight_card(card, hovered):
 		return
 	if hovered:
 		card.scale = Vector2(1.05, 1.05)
-		card.z_index = 2
+		card.z_index = 3
 	else:
 		card.scale = Vector2(1, 1)
 		card.z_index = 1

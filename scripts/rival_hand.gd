@@ -12,13 +12,13 @@ var center_screen_x
 @onready var rival_slot = get_node(rival_slot_path)
 
 func _ready() -> void:
+	await get_tree().process_frame
 	center_screen_x = get_viewport().size.x/2
 	var card_scene = preload(CARD_SCENE_PATH)
-	var dealt_cards = CardDatabase.get_random_deck(HAND_COUNT)
 	for i in range(HAND_COUNT):
 		var new_card = card_scene.instantiate()
 		$"../CardManager".add_child(new_card)
-		new_card.setup(dealt_cards[i])
+		new_card.setup(CardDatabase.rival_hand_cards[i])
 		new_card.hide_from_player()
 		add_card_to_hand(new_card)
 
@@ -38,12 +38,25 @@ func update_hand_positions():
 
 func calculate_card_position(index):
 	var total_width = (rival_hand.size() - 1) * CARD_WIDTH
-	var x_offset = (0.30 * center_screen_x) + index * CARD_WIDTH - total_width / 2
+	var x_offset = (0.24 * center_screen_x) + index * CARD_WIDTH - total_width / 2
 	return x_offset
 
 func animate_card_to_position(card, new_position):
 	var tween = get_tree().create_tween()
 	tween.tween_property(card, "position", new_position, 0.1)
+
+func replenish() -> void:
+	var card_scene = preload(CARD_SCENE_PATH)
+	var cards_needed = HAND_COUNT - rival_hand.size()
+	if cards_needed <= 0:
+		return
+	var new_cards = CardDatabase.get_random_deck(cards_needed)
+	for card_data in new_cards:
+		var new_card = card_scene.instantiate()
+		$"../CardManager".add_child(new_card)
+		new_card.setup(card_data)
+		new_card.hide_from_player()
+		add_card_to_hand(new_card)
 
 func play_random_card() -> void:
 	if rival_hand.is_empty():
@@ -64,6 +77,7 @@ func animate_card_into_slot(card, slot) -> void:
 	tween.tween_callback(func():
 		card.place_in_slot(slot)
 		slot.card_in_slot = true
+		slot.placed_card = card
 	)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

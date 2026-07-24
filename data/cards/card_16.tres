@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="CardData" format=3 uid="uid://dcepnbwry6n8k"]
+
+[ext_resource type="Script" uid="uid://cps0t5ahkb6e1" path="res://scripts/card_data.gd" id="1_we6py"]
+[ext_resource type="Texture2D" uid="uid://fe4ciy3kt5nc" path="res://sprites/Card-Jitsu_Cards_full_16.webp" id="2_1w18k"]
+
+[resource]
+script = ExtResource("1_we6py")
+power = 7
+texture = ExtResource("2_1w18k")
+metadata/_custom_type_script = "uid://cps0t5ahkb6e1"

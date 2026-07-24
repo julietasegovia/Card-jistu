@@ -16,6 +16,8 @@ const BEATS = {
 
 var player_wins = 0
 var rival_wins = 0
+var player_total_power = 0
+var rival_total_power = 0
 
 func resolve_turn(player_card: CardData, rival_card: CardData) -> Winner:
 	var winner = get_turn_winner(player_card, rival_card)
@@ -24,9 +26,17 @@ func resolve_turn(player_card: CardData, rival_card: CardData) -> Winner:
 			player_wins += 1
 		Winner.RIVAL:
 			rival_wins += 1
+		Winner.TIE:
+			pass
 	turn_resolved.emit(winner)
 	check_for_round_winner()
 	return winner
+
+func reset() -> void:
+	player_wins = 0
+	rival_wins = 0
+	player_total_power = 0
+	rival_total_power = 0
 
 func get_turn_winner(player_card: CardData, rival_card: CardData) -> Winner:
 	if player_card.type == rival_card.type:

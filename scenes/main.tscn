@@ -4,9 +4,11 @@
 [ext_resource type="PackedScene" uid="uid://coc76rfwmi35v" path="res://scenes/card_slot.tscn" id="2_jyhfs"]
 [ext_resource type="Script" uid="uid://r3nfmqicmvb" path="res://scripts/player_hand.gd" id="3_jyhfs"]
 [ext_resource type="Script" uid="uid://cvu5jhg1ll2rb" path="res://scripts/rival_hand.gd" id="4_jyhfs"]
-[ext_resource type="Script" uid="uid://3ijyvk3rtuu2" path="res://scenes/turn_manager.gd" id="5_tbgi4"]
-[ext_resource type="Script" uid="uid://de0u5pi8mild1" path="res://scenes/game_over_screen.gd" id="6_o6xl0"]
+[ext_resource type="Script" uid="uid://3ijyvk3rtuu2" path="res://scripts/turn_manager.gd" id="5_tbgi4"]
+[ext_resource type="Script" uid="uid://de0u5pi8mild1" path="res://scripts/game_over_screen.gd" id="6_o6xl0"]
+[ext_resource type="Texture2D" uid="uid://dwcsvxm8x3lgb" path="res://sprites/bg.webp" id="7_85g3d"]
 [ext_resource type="FontFile" uid="uid://ce57rbtp0uh61" path="res://fonts/ninja_note/Ninja Note.otf" id="7_tipki"]
+[ext_resource type="Script" uid="uid://q5yh5n527vwp" path="res://scripts/score_dots.gd" id="8_dots"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_eb6dy"]
 bg_color = Color(0.7877867, 0.7863179, 0.121745534, 1)
@@ -20,15 +22,22 @@ bg_color = Color(0.60656255, 0.60670805, 0.09315858, 1)
 
 [node name="Main" type="Node2D" unique_id=3598990]
 
+[node name="BackgroundScene" type="TextureRect" parent="." unique_id=753594202]
+offset_left = -13.0
+offset_top = -506.0
+offset_right = 1925.291
+offset_bottom = 719.0
+texture = ExtResource("7_85g3d")
+
 [node name="CardManager" type="Node2D" parent="." unique_id=1890234229]
 script = ExtResource("1_sugp2")
 turn_manager_path = NodePath("../TurnManager")
 
 [node name="CardSlot" parent="." unique_id=1389865391 instance=ExtResource("2_jyhfs")]
-position = Vector2(1628, 679)
+position = Vector2(1619, 750)
 
 [node name="RivalSlot" parent="." unique_id=582502003 instance=ExtResource("2_jyhfs")]
-position = Vector2(297, 681)
+position = Vector2(293, 752)
 is_player_slot = false
 
 [node name="PlayerHand" type="Node2D" parent="." unique_id=531071252]
@@ -38,6 +47,15 @@ script = ExtResource("3_jyhfs")
 script = ExtResource("4_jyhfs")
 rival_slot_path = NodePath("../RivalSlot")
 
+[node name="PlayerScoreDots" type="Node2D" parent="." unique_id=198028778]
+position = Vector2(1619, 821)
+script = ExtResource("8_dots")
+
+[node name="RivalScoreDots" type="Node2D" parent="." unique_id=1519881832]
+position = Vector2(293, 824)
+script = ExtResource("8_dots")
+is_player = false
+
 [node name="TurnManager" type="Node2D" parent="." unique_id=1535298449]
 script = ExtResource("5_tbgi4")
 rival_hand_path = NodePath("../RivalHand")
@@ -45,6 +63,7 @@ player_hand_path = NodePath("../PlayerHand")
 player_slot_path = NodePath("../CardSlot")
 
 [node name="GameOverScreen" type="CanvasLayer" parent="." unique_id=914576057]
+visible = false
 script = ExtResource("6_o6xl0")
 
 [node name="Background" type="ColorRect" parent="GameOverScreen" unique_id=1119048600]
@@ -53,7 +72,18 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(1, 1, 1, 0.80784315)
+color = Color(0.34781694, 0.34781697, 0.3478169, 1)
+
+[node name="PanelImage" type="TextureRect" parent="GameOverScreen/Background" unique_id=519266007]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1.5, 1.5)
+expand_mode = 5
+stretch_mode = 5
 
 [node name="WinnerLabel" type="Label" parent="GameOverScreen" unique_id=2091798422]
 anchors_preset = 8
