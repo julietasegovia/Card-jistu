@@ -1,33 +1,88 @@
 [gd_scene format=3 uid="uid://dt3l3ged3a2gy"]
 
 [ext_resource type="Script" uid="uid://wwvyr71mkece" path="res://scripts/card_manager.gd" id="1_sugp2"]
+[ext_resource type="Texture2D" uid="uid://bnrhh6kwuvfs1" path="res://sprites/banner.png" id="2_choun"]
 [ext_resource type="PackedScene" uid="uid://coc76rfwmi35v" path="res://scenes/card_slot.tscn" id="2_jyhfs"]
+[ext_resource type="Texture2D" uid="uid://bj7mncrpijo5j" path="res://sprites/sensei.webp" id="3_eb6dy"]
 [ext_resource type="Script" uid="uid://r3nfmqicmvb" path="res://scripts/player_hand.gd" id="3_jyhfs"]
 [ext_resource type="Script" uid="uid://cvu5jhg1ll2rb" path="res://scripts/rival_hand.gd" id="4_jyhfs"]
+[ext_resource type="Texture2D" uid="uid://dn728yyg3r8w" path="res://sprites/you.webp" id="4_trceg"]
 [ext_resource type="Script" uid="uid://3ijyvk3rtuu2" path="res://scripts/turn_manager.gd" id="5_tbgi4"]
+[ext_resource type="Texture2D" uid="uid://58c0u5s6vg74" path="res://sprites/timer.png" id="5_trceg"]
+[ext_resource type="Script" uid="uid://dtpfugwjfkq6s" path="res://scenes/turn_clock.gd" id="6_a8y0u"]
 [ext_resource type="Script" uid="uid://de0u5pi8mild1" path="res://scripts/game_over_screen.gd" id="6_o6xl0"]
 [ext_resource type="Texture2D" uid="uid://dwcsvxm8x3lgb" path="res://sprites/bg.webp" id="7_85g3d"]
 [ext_resource type="FontFile" uid="uid://ce57rbtp0uh61" path="res://fonts/ninja_note/Ninja Note.otf" id="7_tipki"]
 [ext_resource type="Script" uid="uid://q5yh5n527vwp" path="res://scripts/score_dots.gd" id="8_dots"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_eb6dy"]
-bg_color = Color(0.7877867, 0.7863179, 0.121745534, 1)
+bg_color = Color(0.8784314, 0.8784314, 0.019607844, 1)
 border_width_right = 5
 border_width_bottom = 5
 border_color = Color(0, 0, 0, 1)
 corner_detail = 20
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tipki"]
-bg_color = Color(0.60656255, 0.60670805, 0.09315858, 1)
+bg_color = Color(0.8095131, 0.8094694, 0.00916448, 1)
 
 [node name="Main" type="Node2D" unique_id=3598990]
 
 [node name="BackgroundScene" type="TextureRect" parent="." unique_id=753594202]
-offset_left = -13.0
-offset_top = -506.0
-offset_right = 1925.291
-offset_bottom = 719.0
+offset_left = -11.0
+offset_top = -449.0
+offset_right = 1927.291
+offset_bottom = 776.0
 texture = ExtResource("7_85g3d")
+
+[node name="Banner" type="TextureRect" parent="." unique_id=135895361]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -40.0
+offset_top = 571.0
+offset_right = 1957.0
+offset_bottom = 1076.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_choun")
+
+[node name="Rival" type="TextureRect" parent="." unique_id=1644616208]
+offset_left = 128.0
+offset_top = 95.0
+offset_right = 557.0
+offset_bottom = 554.03
+texture = ExtResource("3_eb6dy")
+expand_mode = 1
+
+[node name="Player" type="TextureRect" parent="." unique_id=1932251842]
+offset_left = 1431.0
+offset_top = 85.0
+offset_right = 1724.0
+offset_bottom = 563.3674
+texture = ExtResource("4_trceg")
+flip_h = true
+
+[node name="TurnClock" type="Node2D" parent="." unique_id=393021244]
+position = Vector2(979, 859)
+script = ExtResource("6_a8y0u")
+background_color = Color(7.893444e-06, 0.7300159, 7.70092e-07, 1)
+fill_color = Color(0.6790145, 2.815649e-06, 5.7756904e-07, 1)
+font = ExtResource("7_tipki")
+
+[node name="Clock" type="TextureRect" parent="." unique_id=1922253862]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 864.0
+offset_top = 743.0
+offset_right = 1097.0
+offset_bottom = 975.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("5_trceg")
+expand_mode = 1
 
 [node name="CardManager" type="Node2D" parent="." unique_id=1890234229]
 script = ExtResource("1_sugp2")
@@ -61,6 +116,7 @@ script = ExtResource("5_tbgi4")
 rival_hand_path = NodePath("../RivalHand")
 player_hand_path = NodePath("../PlayerHand")
 player_slot_path = NodePath("../CardSlot")
+timer_clock_path = NodePath("../TurnClock")
 
 [node name="GameOverScreen" type="CanvasLayer" parent="." unique_id=914576057]
 visible = false

@@ -7,15 +7,21 @@ const RESULT_DISPLAY_TIME = 1.5
 @export var rival_hand_path: NodePath
 @export var player_hand_path: NodePath
 @export var player_slot_path: NodePath
+@export var timer_clock_path: NodePath
 
 @onready var rival_hand = get_node(rival_hand_path)
 @onready var player_hand = get_node(player_hand_path)
 @onready var player_slot = get_node(player_slot_path)
 @onready var rival_slot = rival_hand.rival_slot
+@onready var timer_clock = get_node(timer_clock_path)
+
 
 var turn_timer: Timer
 var is_resolving = false
 var result_label: Label
+
+func _process(_delta: float) -> void:
+	timer_clock.update_display(turn_timer.time_left, TURN_TIME_LIMIT)
 
 func _ready() -> void:
 	turn_timer = Timer.new()
@@ -41,7 +47,8 @@ func start_turn() -> void:
 	is_resolving = false
 	rival_hand.play_random_card()
 	turn_timer.start()
-
+	timer_clock.update_display(TURN_TIME_LIMIT, TURN_TIME_LIMIT)
+	
 func stop_turn_timer() -> void:
 	turn_timer.stop()
 	check_resolve_turn()

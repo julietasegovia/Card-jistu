@@ -4,6 +4,7 @@ const HAND_COUNT = 5
 const CARD_SCENE_PATH = "res://scenes/card.tscn"
 const CARD_WIDTH = 100
 const HAND_Y_POSITION = 1000
+const HAND_OFFSET_FROM_CENTER = 600
 
 var rival_hand = []
 var center_screen_x
@@ -12,7 +13,6 @@ var center_screen_x
 @onready var rival_slot = get_node(rival_slot_path)
 
 func _ready() -> void:
-	await get_tree().process_frame
 	center_screen_x = get_viewport().size.x/2
 	var card_scene = preload(CARD_SCENE_PATH)
 	for i in range(HAND_COUNT):
@@ -37,8 +37,9 @@ func update_hand_positions():
 		card.starting_position = new_position
 
 func calculate_card_position(index):
-	var total_width = (rival_hand.size() - 1) * CARD_WIDTH
-	var x_offset = (0.24 * center_screen_x) + index * CARD_WIDTH - total_width / 2
+	var total_width = (HAND_COUNT - 1) * CARD_WIDTH
+	var hand_center_x = center_screen_x - HAND_OFFSET_FROM_CENTER
+	var x_offset = hand_center_x + index * CARD_WIDTH - total_width / 2
 	return x_offset
 
 func animate_card_to_position(card, new_position):
