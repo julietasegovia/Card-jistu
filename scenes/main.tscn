@@ -9,11 +9,13 @@
 [ext_resource type="Texture2D" uid="uid://dn728yyg3r8w" path="res://sprites/you.webp" id="4_trceg"]
 [ext_resource type="Script" uid="uid://3ijyvk3rtuu2" path="res://scripts/turn_manager.gd" id="5_tbgi4"]
 [ext_resource type="Texture2D" uid="uid://58c0u5s6vg74" path="res://sprites/timer.png" id="5_trceg"]
-[ext_resource type="Script" uid="uid://dtpfugwjfkq6s" path="res://scenes/turn_clock.gd" id="6_a8y0u"]
+[ext_resource type="Script" uid="uid://dtpfugwjfkq6s" path="res://scripts/turn_clock.gd" id="6_a8y0u"]
 [ext_resource type="Script" uid="uid://de0u5pi8mild1" path="res://scripts/game_over_screen.gd" id="6_o6xl0"]
 [ext_resource type="Texture2D" uid="uid://dwcsvxm8x3lgb" path="res://sprites/bg.webp" id="7_85g3d"]
 [ext_resource type="FontFile" uid="uid://ce57rbtp0uh61" path="res://fonts/ninja_note/Ninja Note.otf" id="7_tipki"]
 [ext_resource type="Script" uid="uid://q5yh5n527vwp" path="res://scripts/score_dots.gd" id="8_dots"]
+[ext_resource type="PackedScene" uid="uid://bwljmxvu0ca1y" path="res://scenes/main_menu.tscn" id="15_jkv2x"]
+[ext_resource type="Script" uid="uid://b5mm1omtj5e0j" path="res://scripts/main_menu.gd" id="16_jbj1t"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_eb6dy"]
 bg_color = Color(0.8784314, 0.8784314, 0.019607844, 1)
@@ -117,6 +119,8 @@ rival_hand_path = NodePath("../RivalHand")
 player_hand_path = NodePath("../PlayerHand")
 player_slot_path = NodePath("../CardSlot")
 timer_clock_path = NodePath("../TurnClock")
+main_menu_path = NodePath("../MainMenu")
+card_manager_path = NodePath("../CardManager")
 
 [node name="GameOverScreen" type="CanvasLayer" parent="." unique_id=914576057]
 visible = false
@@ -178,3 +182,6 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_eb6dy")
 theme_override_styles/hover = SubResource("StyleBoxFlat_tipki")
 action_mode = 0
 text = "Play Again?"
+
+[node name="MainMenu" parent="." unique_id=278532576 instance=ExtResource("15_jkv2x")]
+script = ExtResource("16_jbj1t")

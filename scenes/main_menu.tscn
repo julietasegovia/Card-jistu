@@ -1,0 +1,33 @@
+[gd_scene format=3 uid="uid://bwljmxvu0ca1y"]
+
+[ext_resource type="Texture2D" uid="uid://be1aunyra3lux" path="res://sprites/menu.webp" id="2_wu84c"]
+[ext_resource type="FontFile" uid="uid://ce57rbtp0uh61" path="res://fonts/ninja_note/Ninja Note.otf" id="3_8ln24"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vue75"]
+bg_color = Color(0.8027057, 0.5323549, 0.24998438, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jbj1t"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ekxnf"]
+bg_color = Color(0.9270034, 0.6680807, 0.4154841, 1)
+
+[node name="MainMenu" type="Node2D" unique_id=278532576]
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=2013768068]
+offset_right = 2013.2346
+offset_bottom = 1274.0
+texture = ExtResource("2_wu84c")
+
+[node name="Button" type="Button" parent="." unique_id=1046488509]
+offset_left = 1185.0
+offset_top = 690.0
+offset_right = 1548.0
+offset_bottom = 804.0
+theme_override_constants/outline_size = 12
+theme_override_fonts/font = ExtResource("3_8ln24")
+theme_override_font_sizes/font_size = 56
+theme_override_styles/normal = SubResource("StyleBoxFlat_vue75")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_jbj1t")
+theme_override_styles/hover = SubResource("StyleBoxFlat_ekxnf")
+text = "Play
+"

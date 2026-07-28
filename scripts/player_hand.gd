@@ -10,7 +10,7 @@ var player_hand = []
 var center_screen_x
 
 func _ready() -> void:
-	center_screen_x = get_viewport().size.x/2
+	center_screen_x = ProjectSettings.get_setting("display/window/size/viewport_width") / 2
 	CardDatabase.deal_hands()
 	var card_scene = preload(CARD_SCENE_PATH)
 	for i in range(HAND_COUNT):

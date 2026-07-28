@@ -8,12 +8,16 @@ const RESULT_DISPLAY_TIME = 1.5
 @export var player_hand_path: NodePath
 @export var player_slot_path: NodePath
 @export var timer_clock_path: NodePath
+@export var main_menu_path: NodePath
+@export var card_manager_path: NodePath 
 
 @onready var rival_hand = get_node(rival_hand_path)
 @onready var player_hand = get_node(player_hand_path)
 @onready var player_slot = get_node(player_slot_path)
 @onready var rival_slot = rival_hand.rival_slot
 @onready var timer_clock = get_node(timer_clock_path)
+@onready var main_menu = get_node(main_menu_path)
+@onready var card_manager = get_node(card_manager_path)
 
 
 var turn_timer: Timer
@@ -29,7 +33,6 @@ func _ready() -> void:
 	turn_timer.one_shot = true
 	turn_timer.timeout.connect(_on_turn_timeout)
 	add_child(turn_timer)
-
 	result_label = Label.new()
 	result_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	result_label.position = Vector2(760, 400)
@@ -40,8 +43,13 @@ func _ready() -> void:
 	result_label.add_theme_constant_override("outline_size", 4)
 	result_label.visible = false
 	add_child(result_label)
+	card_manager.hide()
+	main_menu.game_started.connect(_on_game_started)
 
+func _on_game_started() -> void:
+	card_manager.show()
 	start_turn()
+
 
 func start_turn() -> void:
 	is_resolving = false

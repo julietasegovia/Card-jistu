@@ -13,7 +13,7 @@ var center_screen_x
 @onready var rival_slot = get_node(rival_slot_path)
 
 func _ready() -> void:
-	center_screen_x = get_viewport().size.x/2
+	center_screen_x = ProjectSettings.get_setting("display/window/size/viewport_width") / 2
 	var card_scene = preload(CARD_SCENE_PATH)
 	for i in range(HAND_COUNT):
 		var new_card = card_scene.instantiate()
